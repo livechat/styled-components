@@ -122,9 +122,11 @@ export class StyleSheet {
         this._insert(rule)
       }
       else{
-        const textNode = document.createTextNode(rule)
-        last(this.tags).appendChild(textNode)
-        insertedRule = { textNode, appendRule: newCss => textNode.appendData(newCss)}
+        const tag = last(this.tags)
+        tag.innerHTML = tag.innerHTML + rule;
+        insertedRule = { appendRule: newCss => {
+          tag.innerHTML = tag.innerHTML + newCss
+        }}
 
         if(!this.isSpeedy) {
           // sighhh
